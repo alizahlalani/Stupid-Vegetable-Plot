@@ -3,7 +3,13 @@ const {db, Vegetable, Gardener, Plot} = require('./model');
 
 
 db.sync({force: true})
-    .then(db => {
+.then( ()=> {
+    return Vegetable.bulkCreate(
+        [{name: 'eggplant', color: 'purple', planted_on:Date.now()},
+        {name: 'squash', color: 'yellow', planted_on: Date.now()},
+        {name: 'cukes', color: 'green', planted_on:Date.now()}]
+    )}
+).then(db => {
         console.log("Sync successful! :)")
         // db.close();
     })
@@ -15,7 +21,15 @@ db.sync({force: true})
         db.close();
     })
 
-
+//  Vegetable.bulkCreate(
+//     [{name: 'eggplant', color: 'purple', planted_on:Date.now()},
+//     {name: 'squash', color: 'yellow', planted_on: Date.now()},
+//     {name: 'cukes', color: 'green', planted_on:Date.now()}]
+// ). then( () => {
+//        return Vegetable.findAll();        
+//  }).then ( vegetables => {
+//     console.log(vegetables);
+// });
 // creating n array of prokmises for veg to bulk resolve 
 
 // const vegetablesToSeed = ['eggplant', 'cucumber', 'squash', 'turnip' ];
@@ -26,13 +40,5 @@ db.sync({force: true})
 // [
 //     Pokemon.create('pikachu'),
 //     Pokemon.create('meowth')
- Vegetable.bulkCreate(
-    [{name: 'eggplant', color: 'purple', planted_on:Date.now()},
-    {name: 'squash', color: 'yellow', planted_on: Date.now()},
-    {name: 'cukes', color: 'green', planted_on:Date.now()}]
-). then( () => {
-       return Vegetable.findAll();        
- }).then ( vegetables => {
-    console.log(vegetables);
-});
+
 
